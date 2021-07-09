@@ -103,8 +103,4 @@ Application Jar
 /targer/assignment-0.0.1-SNAPSHOT.jar
 ```
 
-Mock Data 
-----------
-```
-Mock_Data.sql
-```
+
