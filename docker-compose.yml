@@ -7,6 +7,8 @@ services:
       - 8088:8088
     depends_on:
       - maria_db
+    links:
+      - maria_db:maria_db 
     command: sh -c './wait-for mysql_db:3306 -- npm start'
   maria_db:
     image: "mariadb:10.5.8"
