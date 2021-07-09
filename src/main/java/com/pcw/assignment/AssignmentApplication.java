@@ -13,27 +13,27 @@ import javax.annotation.PostConstruct;
 
 @SpringBootApplication
 public class AssignmentApplication {
-	@Autowired
-	private ServerVerticle serverVerticle;
+    @Autowired
+    private ServerVerticle serverVerticle;
 
-	@Autowired
-	private BookVerticle bookVerticle;
-	@Autowired
-	private UserVerticle userVerticle;
-	@Autowired
-	private LendEntryVerticle lendEntryVerticle;
+    @Autowired
+    private BookVerticle bookVerticle;
+    @Autowired
+    private UserVerticle userVerticle;
+    @Autowired
+    private LendEntryVerticle lendEntryVerticle;
 
-	public static void main(String[] args) {
-		SpringApplication.run(AssignmentApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(AssignmentApplication.class, args);
+    }
 
-	@PostConstruct
-	public void deployVerticle() {
-		final Vertx vertx = Vertx.vertx();
-		vertx.deployVerticle(serverVerticle);
-		vertx.deployVerticle(bookVerticle);
-		vertx.deployVerticle(userVerticle);
-		vertx.deployVerticle(lendEntryVerticle);
-	}
+    @PostConstruct
+    public void deployVerticle() {
+        final Vertx vertx = Vertx.vertx();
+        vertx.deployVerticle(serverVerticle);
+        vertx.deployVerticle(bookVerticle);
+        vertx.deployVerticle(userVerticle);
+        vertx.deployVerticle(lendEntryVerticle);
+    }
 
 }

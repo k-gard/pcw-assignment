@@ -9,20 +9,23 @@ import java.util.List;
 @Service
 public class BookService {
     private BooksRepository repository;
+
     public BookService(BooksRepository repository) {
         this.repository = repository;
     }
 
-    public List<Book> getAllBooks(){
+    public List<Book> getAllBooks() {
         return repository.findAll();
     }
-    public Book addBook(Book book){
+
+    public Book addBook(Book book) {
 
         repository.save(book);
         return book;
     }
-    public Book getById(int id){
-    return repository.getById(id);
+
+    public Book getById(int id) {
+        return repository.getById(id);
     }
 
 }

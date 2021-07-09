@@ -96,13 +96,14 @@ public class LendEntryVerticle extends AbstractVerticle {
     }
 
 
-    public String mapLendEntryListToString(List<LendEntry> lendEntryList){
+    public String mapLendEntryListToString(List<LendEntry> lendEntryList) {
         StringBuilder sb = new StringBuilder();
         sb.append("{");
-        for(LendEntry lendEntry : lendEntryList){
+        for (LendEntry lendEntry : lendEntryList) {
             sb.append(lendEntry.toString());
             sb.append(", \n");
-    }
+        }
         sb.append("}");
-    return  sb.toString();}
+        return sb.toString();
+    }
 }

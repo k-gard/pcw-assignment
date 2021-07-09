@@ -16,6 +16,7 @@ public class ServerVerticle extends AbstractVerticle {
 
     @Autowired
     private Integer defaultPort;
+
     @Override
     public void start() throws Exception {
         super.start();
@@ -46,14 +47,14 @@ public class ServerVerticle extends AbstractVerticle {
                 .<String>send(LendEntryVerticle.ADD_LEND_ENTRY, bookJson, result -> {
                     if (result.succeeded() && result.result().body().contains("Failed")) {
                         routingContext.response()
-                                .setStatusCode(400).putHeader("content-type","application/json; charset=utf-8")
+                                .setStatusCode(400).putHeader("content-type", "application/json; charset=utf-8")
                                 .end("Data integrity violation");
 
-                    }else if (result.succeeded()) {
+                    } else if (result.succeeded()) {
                         routingContext.response()
-                                .setStatusCode(201).putHeader("content-type","application/json; charset=utf-8")
+                                .setStatusCode(201).putHeader("content-type", "application/json; charset=utf-8")
                                 .end(result.result().body());
-                    }else {
+                    } else {
                         routingContext.response()
                                 .setStatusCode(500)
                                 .end();
@@ -64,21 +65,21 @@ public class ServerVerticle extends AbstractVerticle {
 
     private void getLendEntryByIdHandler(RoutingContext routingContext) {
         JsonObject lendEntryKey = new JsonObject();
-        lendEntryKey.put("bookId",Integer.parseInt(routingContext.request().getParam("bookId")));
-        lendEntryKey.put("userId",Integer.parseInt(routingContext.request().getParam("userId")));
+        lendEntryKey.put("bookId", Integer.parseInt(routingContext.request().getParam("bookId")));
+        lendEntryKey.put("userId", Integer.parseInt(routingContext.request().getParam("userId")));
         System.out.println(lendEntryKey);
         vertx.eventBus()
                 .<String>send(LendEntryVerticle.GET_LEND_ENTRY_BY_ID, lendEntryKey, result -> {
                     if (result.succeeded() && result.result().body().contains("EntityNotFoundException")) {
                         routingContext.response()
-                                .setStatusCode(404).putHeader("content-type","application/json; charset=utf-8")
+                                .setStatusCode(404).putHeader("content-type", "application/json; charset=utf-8")
                                 .end("Not Found");
 
-                    }else if (result.succeeded()) {
+                    } else if (result.succeeded()) {
                         routingContext.response()
-                                .setStatusCode(201).putHeader("content-type","application/json; charset=utf-8")
+                                .setStatusCode(201).putHeader("content-type", "application/json; charset=utf-8")
                                 .end(result.result().body());
-                    }else {
+                    } else {
                         routingContext.response()
                                 .setStatusCode(500)
                                 .end();
@@ -127,41 +128,40 @@ public class ServerVerticle extends AbstractVerticle {
                 .<String>send(BookVerticle.ADD_BOOK, bookJson, result -> {
                     if (result.succeeded() && result.result().body().contains("Failed")) {
                         routingContext.response()
-                                .setStatusCode(400).putHeader("content-type","application/json; charset=utf-8")
+                                .setStatusCode(400).putHeader("content-type", "application/json; charset=utf-8")
                                 .end("Data integrity violation");
 
-                    }else if (result.succeeded()) {
+                    } else if (result.succeeded()) {
                         routingContext.response()
-                                .setStatusCode(201).putHeader("content-type","application/json; charset=utf-8")
+                                .setStatusCode(201).putHeader("content-type", "application/json; charset=utf-8")
                                 .end(result.result().body());
-                    }else {
+                    } else {
                         routingContext.response()
                                 .setStatusCode(500)
                                 .end();
                     }
                 });
     }
+
     private void getBookByIdHandler(RoutingContext routingContext) {
         vertx.eventBus()
                 .<String>send(BookVerticle.GET_BOOK_BY_ID, routingContext.request().getParam("id"), result -> {
                     if (result.succeeded() && result.result().body().contains("EntityNotFoundException")) {
                         routingContext.response()
-                                .setStatusCode(404).putHeader("content-type","application/json; charset=utf-8")
+                                .setStatusCode(404).putHeader("content-type", "application/json; charset=utf-8")
                                 .end("Not Found");
 
-                    }else if (result.succeeded()) {
+                    } else if (result.succeeded()) {
                         routingContext.response()
-                                .setStatusCode(201).putHeader("content-type","application/json; charset=utf-8")
+                                .setStatusCode(201).putHeader("content-type", "application/json; charset=utf-8")
                                 .end(result.result().body());
-                    }else {
+                    } else {
                         routingContext.response()
                                 .setStatusCode(500)
                                 .end();
                     }
                 });
     }
-
-
 
 
     private void getUserByIdHandler(RoutingContext routingContext) {
@@ -170,14 +170,14 @@ public class ServerVerticle extends AbstractVerticle {
                 .<String>send(UserVerticle.GET_USER_BY_ID, routingContext.request().getParam("id"), result -> {
                     if (result.succeeded() && result.result().body().contains("EntityNotFoundException")) {
                         routingContext.response()
-                                .setStatusCode(404).putHeader("content-type","application/json; charset=utf-8")
+                                .setStatusCode(404).putHeader("content-type", "application/json; charset=utf-8")
                                 .end("Not Found");
 
-                    }else if (result.succeeded()) {
+                    } else if (result.succeeded()) {
                         routingContext.response()
-                                .setStatusCode(201).putHeader("content-type","application/json; charset=utf-8")
+                                .setStatusCode(201).putHeader("content-type", "application/json; charset=utf-8")
                                 .end(result.result().body());
-                    }else {
+                    } else {
                         routingContext.response()
                                 .setStatusCode(500)
                                 .end();
@@ -185,26 +185,28 @@ public class ServerVerticle extends AbstractVerticle {
                 });
 
     }
+
     private void addUserHandler(RoutingContext routingContext) {
         JsonObject userJson = routingContext.getBody().toJsonObject();
         vertx.eventBus()
                 .<String>send(UserVerticle.ADD_USER, userJson, result -> {
                     if (result.succeeded() && result.result().body().contains("Failed")) {
                         routingContext.response()
-                                .setStatusCode(400).putHeader("content-type","application/json; charset=utf-8")
+                                .setStatusCode(400).putHeader("content-type", "application/json; charset=utf-8")
                                 .end("Data integrity violation");
 
-                    }else if (result.succeeded()) {
+                    } else if (result.succeeded()) {
                         routingContext.response()
-                                .setStatusCode(201).putHeader("content-type","application/json; charset=utf-8")
+                                .setStatusCode(201).putHeader("content-type", "application/json; charset=utf-8")
                                 .end(result.result().body());
-                    }else {
+                    } else {
                         routingContext.response()
                                 .setStatusCode(500)
                                 .end();
                     }
                 });
     }
+
     private void getAllUsersHandler(RoutingContext routingContext) {
         vertx.eventBus()
                 .<String>send(UserVerticle.GET_ALL_USERS, "", result -> {

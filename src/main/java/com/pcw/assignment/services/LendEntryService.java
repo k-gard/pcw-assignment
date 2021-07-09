@@ -16,15 +16,16 @@ public class LendEntryService {
     private LendEntriesRepository lendEntriesRepository;
     private BooksRepository booksRepository;
     private UsersRepository usersRepository;
+
     public LendEntryService(LendEntriesRepository lendEntriesRepository,
                             BooksRepository booksRepository,
                             UsersRepository usersRepository) {
-                            this.lendEntriesRepository = lendEntriesRepository;
-                            this.booksRepository = booksRepository;
-                            this.usersRepository = usersRepository;
+        this.lendEntriesRepository = lendEntriesRepository;
+        this.booksRepository = booksRepository;
+        this.usersRepository = usersRepository;
     }
 
-    public List<LendEntry> findAllLendEntries(){
+    public List<LendEntry> findAllLendEntries() {
         return lendEntriesRepository.findAll();
     }
 

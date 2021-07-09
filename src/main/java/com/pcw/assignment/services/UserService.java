@@ -15,11 +15,10 @@ public class UserService {
         this.repository = repository;
     }
 
-    public List<User> findAllusers(){
+    public List<User> findAllusers() {
 
         return repository.findAll();
     }
-
 
 
     public User addUser(User user) {
